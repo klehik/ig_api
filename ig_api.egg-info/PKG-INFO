@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: ig-api
+Version: 0.0.1
+Summary: Simple library to make requests to IG graph api
+Home-page: https://lol.com
+Author: Kalle Lehikoinen
+Author-email: kalle.lehikoinen@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENCE.txt
+
+# Instagram API
+Library to make requests to Instagram Graph API
+
+# Installation 
+
+```python
+pip3 install instagram_api
+
+```
+
+# Usage
+```python
+from instagram_api import get_ig_api_limit
+
+```
+
