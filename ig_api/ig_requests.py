@@ -10,7 +10,7 @@ class IGrequest:
 
     def __init__(self, auth: Authentication):
         
-        self.ig_user_id = auth.user_id
+        self.ig_account_id = auth.ig_account_id
         self.access_token = auth.access_token
         self.endpoint_base = 'https://graph.facebook.com/v14.0/'
 

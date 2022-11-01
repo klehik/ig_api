@@ -10,6 +10,7 @@ setuptools.setup(
     author="Kalle Lehikoinen",
     author_email="kalle.lehikoinen@gmail.com",
     description="Simple library to make requests to IG graph api",
+    requires=['dotenv', 'requests'],
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://lol.com",

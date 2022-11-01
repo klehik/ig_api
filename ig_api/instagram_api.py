@@ -10,14 +10,6 @@ class API:
     def __init__(self, auth=None):
         self.api = IGrequest(auth)
 
-    
-        logger = logging.getLogger()
-        logger.setLevel(logging.INFO)
-        ch = logging.StreamHandler()
-        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-        ch.setFormatter(formatter)        
-        logger.addHandler(ch)
-    
 
 
     def create_post(self, urls, caption):
