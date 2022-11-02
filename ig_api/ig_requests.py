@@ -38,7 +38,7 @@ class IGrequest:
             response['json_data']['id']
         """
 
-        url =(f"{self.endpoint_base}/{self.ig_user_id}/media")
+        url =(f"{self.endpoint_base}/{self.ig_account_id}/media")
 
         endpoint_params = dict() # parameter to send to the endpoint
         endpoint_params['caption'] = params['caption']  # caption for the post
@@ -77,7 +77,7 @@ class IGrequest:
         """ Publish content """
       
 
-        url = f"{self.endpoint_base}/{self.ig_user_id}/media_publish" # endpoint url
+        url = f"{self.endpoint_base}/{self.ig_account_id}/media_publish" # endpoint url
 
         endpoint_params = dict() # parameter to send to the endpoint
         endpoint_params['creation_id'] = media_object_id # fields to get back
@@ -94,7 +94,7 @@ class IGrequest:
         
         """
 
-        url = f"{self.endpoint_base}/{self.ig_user_id}/content_publishing_limit" # endpoint url
+        url = f"{self.endpoint_base}/{self.ig_account_id}/content_publishing_limit" # endpoint url
 
         endpoint_params = dict() # parameter to send to the endpoint
         endpoint_params['fields'] = 'config,quota_usage' # fields to get back
