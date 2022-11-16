@@ -6,7 +6,8 @@ PyInstaller builds the exe, so as to inject date/other infos into it.
 *.spec
 
 
-__pycache__
+ __pycache__/
+ *.pyc
 
 # Installer logs
 pip-log.txt
