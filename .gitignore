@@ -1,6 +1,12 @@
- PyInstaller builds the exe, so as to inject date/other infos into it.
+ 
+
+
+PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
+
+
+__pycache__
 
 # Installer logs
 pip-log.txt
