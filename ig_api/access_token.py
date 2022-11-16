@@ -1,6 +1,6 @@
 import os
 import requests
-from dotenv import load_dotenv
+import dotenv
 import logging
 from datetime import datetime, timedelta
 from .authentication import Authentication
@@ -13,7 +13,7 @@ class AccessTokenRefresh:
 
     def refresh_long_lived_access_token(self):
         auth = self.auth
-        api_version = "v13.0"
+        api_version = "v15.0"
         
 
         url = f"https://graph.facebook.com/{api_version}/oauth/access_token?grant_type=fb_exchange_token&client_id={auth.ig_app_id}&client_secret={auth.client_secret}&fb_exchange_token={auth.access_token}" 
@@ -69,6 +69,6 @@ class AccessTokenRefresh:
         if self.access_token_is_expiring():
             logging.info("Access token is expiring, refreshing token")
             self.refresh_long_lived_access_token()
-            load_dotenv(self.auth.env_path)
+            dotenv.load_dotenv(self.auth.env_path)
         else:
             logging.info("Valid IG access token")
