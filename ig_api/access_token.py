@@ -13,10 +13,7 @@ class AccessTokenRefresh:
 
     def refresh_long_lived_access_token(self):
         auth = self.auth
-        api_version = "v15.0"
-        
-
-        url = f"https://graph.facebook.com/{api_version}/oauth/access_token?grant_type=fb_exchange_token&client_id={auth.ig_app_id}&client_secret={auth.client_secret}&fb_exchange_token={auth.access_token}" 
+        url = f"https://graph.facebook.com/v15.0/oauth/access_token?grant_type=fb_exchange_token&client_id={auth.ig_app_id}&client_secret={auth.client_secret}&fb_exchange_token={auth.access_token}" 
         
 
         try:
@@ -33,9 +30,6 @@ class AccessTokenRefresh:
         except Exception as e:
                 logging.error("Error refreshing IG access_token, error: {}".format(e), exc_info=True)
 
-
-
-
         
         
     def get_access_token_exp_date(self):
@@ -49,6 +43,7 @@ class AccessTokenRefresh:
         
         response = requests.get(url)
         data = response.json()
+        print(data)
         return data['data']['expires_at']
 
         
@@ -58,14 +53,12 @@ class AccessTokenRefresh:
         expires_at = self.get_access_token_exp_date()
         exp_date = datetime.utcfromtimestamp(expires_at)
         delta = timedelta(days=7)
-
-
         return (exp_date - delta) < datetime.now()
 
 
 
 
-    def access_token_check(self):
+    def access_token_refresh(self):
         if self.access_token_is_expiring():
             logging.info("Access token is expiring, refreshing token")
             self.refresh_long_lived_access_token()

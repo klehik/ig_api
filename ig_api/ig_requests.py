@@ -12,7 +12,7 @@ class IGrequest:
         
         self.ig_account_id = auth.ig_account_id
         self.access_token = auth.access_token
-        self.endpoint_base = 'https://graph.facebook.com/v14.0/'
+        self.endpoint_base = 'https://graph.facebook.com/v15.0/'
 
 
     def __make_api_call(self, url, endpoint_params, type) :

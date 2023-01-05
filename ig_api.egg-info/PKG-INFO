@@ -19,7 +19,7 @@ Library to make requests to Instagram Graph API
 # Installation 
 
 ```python
-pip3 install instagram_api
+pip3 install ig_api
 
 ```
 

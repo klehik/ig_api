@@ -15,7 +15,7 @@ class API:
     def create_post(self, urls, caption):
 
         if urls == None:
-            raise ValueError("Error:")
+            raise ValueError("Error")
         
         if len(urls) > 1:
 

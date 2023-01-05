@@ -21,9 +21,6 @@ import ig_api
 
 ```python
 ACCESS_TOKEN=
-GRAPH_DOMAIN=https://graph.facebook.com/ #base domain for api calls
-GRAPH_VERSION=v14.0  #version of the api 
-ENDPOINT_BASE=https://graph.facebook.com/v14.0/ #base endpoint with domain and version
 INSTAGRAM_ACCOUNT_ID= #user's instagram account 
 CLIENT_ID= #client id from meta developer portal
 CLIENT_SECRET= #client secret from meta developer portal
@@ -56,7 +53,7 @@ api.create_post(urls=urls, caption=caption)
 
 ```python
 refresher = ig_api.AccessTokenRefresh(auth)
-refresher.access_token_check()
+refresher.access_token_refresh()
 
 ```
 
