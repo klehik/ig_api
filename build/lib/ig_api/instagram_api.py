@@ -3,19 +3,43 @@ import time
 import mimetypes
 import logging
 
-from ig_requests import IGrequest
+from .ig_requests import IGrequest
 
 class API:
 
     def __init__(self, auth=None):
         self.api = IGrequest(auth)
-    
+
+
 
     def create_post(self, urls, caption):
+
+        if urls == None:
+            raise ValueError("Error")
+        
+        if len(urls) > 1:
+
+            media_id = self.__create_carousel_post(urls, caption)
+
+        else:
+            media_id = self.__create_single_post(urls[0], caption)
+            
+
+        self.__publish(media_id)
+
+    def __create_single_post(self,url, caption):
+
+        return self.__get_media_item_id(url, False, caption)
+        
+
+
+    
+    def __create_carousel_post(self,urls, caption):
+
         logging.info("Creating Instagram carousel object:")
         media_ids = []
         for url in urls:
-            media_ids.append(self.__get_media_carousel_item_id(url))
+            media_ids.append(self.__get_media_item_id(url, True, ''))
 
         
         params = dict()
@@ -24,11 +48,12 @@ class API:
         params['caption'] = caption
         params['is_carousel_item'] = False
         api_response = self.api.create_media_object(params)
-        carousel_id = api_response['json_data']['id']
+        print(api_response)
+        post_id = api_response['json_data']['id']
         object_status = 'IN_PROGRESS'
 
         while object_status != 'FINISHED':
-            status_response = self.api.get_media_object_status(params, carousel_id)
+            status_response = self.api.get_media_object_status(params, post_id)
             logging.info("Media object status: {}".format(object_status))
             object_status = status_response['json_data']['status_code']
             
@@ -36,12 +61,12 @@ class API:
             
         logging.info("Media object status: {}".format(object_status))
         
-        self.id = carousel_id
+        return post_id
 
 
     
-    def __get_media_carousel_item_id(self, url):
-        ''' Returns carousel media id '''
+    def __get_media_item_id(self, url, is_carousel, caption):
+        ''' Returns media id '''
 
         logging.info("Creating Instagram media object:")
 
@@ -54,17 +79,20 @@ class API:
             media_type = media_type.split('/')[0].upper()
 
         if media_type != 'VIDEO' and media_type != 'IMAGE':
-            raise TypeError(f"Unsupported media type: {media_type}") 
+            raise Exception(f"Unsupported media type: {media_type}") 
             
 
         params = dict()  
         params['media_type'] = media_type 
         params['media_url'] = url
-        params['is_carousel_item']=True
-        params['caption'] = ''
+        params['is_carousel_item']=is_carousel
+        params['caption'] = caption
 
         api_response = self.api.create_media_object(params)
-       
+        print(api_response)
+
+        if 'error' in api_response['json_data']:
+            raise ValueError(api_response['json_data']['error']['message'])
         media_id = api_response['json_data']['id']
         object_status = 'IN_PROGRESS'
 
@@ -81,13 +109,13 @@ class API:
 
 
 
-    def publish(self, id):
+    def __publish(self, id):
         logging.info("Publishing to Instagram:")
         try:
 
             
             # PUBLISH
-            publish_response = self.api.publish_content(self.id) # publish the post to instagram
+            publish_response = self.api.publish_content(id) # publish the post to instagram
 
             if 'error' in publish_response['json_data']:
 

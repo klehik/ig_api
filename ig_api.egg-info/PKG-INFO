@@ -13,19 +13,68 @@ Classifier: Operating System :: OS Independent
 Description-Content-Type: text/markdown
 License-File: LICENCE.txt
 
-# Instagram API
-Library to make requests to Instagram Graph API
+# ig_api
+
+A simple Python package to publish content using Instagram Graph API
 
 # Installation 
 
 ```python
-pip3 install ig_api
+pip install "git+https://gitlab.labranet.jamk.fi/AA4085/ig_pkg.git"
 
 ```
 
 # Usage
+
 ```python
-from instagram_api import get_ig_api_limit
+import ig_api
 
 ```
+
+## Credentials
+### Create .env file for Instagram credentials
+
+```python
+ACCESS_TOKEN=
+INSTAGRAM_ACCOUNT_ID= #user's instagram account 
+CLIENT_ID= #client id from meta developer portal
+CLIENT_SECRET= #client secret from meta developer portal
+PAGE_ID= #facebook page id
+IG_USERNAME= #ig username
+```
+
+## Authentication
+
+```python
+env_path = '.env'
+auth = ig_api.Authentication(env_path=env_path)
+
+```
+
+## Posting
+Instagram media needs to be on a public server
+
+Single url creates a normal post, multiple urls(up to 10) creates a Carousel post
+
+```python
+urls = ['https://exapmle.com/example.jpg', 'https://exapmle2.com/example2.mp4']
+caption = 'test post'
+api = ig_api.API(auth)
+api.create_post(urls=urls, caption=caption)
+
+```
+
+## Refreshing access token if expired
+
+```python
+refresher = ig_api.AccessTokenRefresh(auth)
+refresher.access_token_refresh()
+
+```
+
+
+
+
+
+
 
