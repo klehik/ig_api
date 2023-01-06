@@ -1,11 +1,11 @@
 # ig_api
 
-A simple Python package to publish content using Instagram Graph API
+A simple Python package to publish content using Instagram Graph API. Expired access token is refreshed automatically.
 
 # Installation 
 
 ```python
-pip install "git+https://gitlab.labranet.jamk.fi/AA4085/ig_pkg.git"
+pip install git+https://github.com/klehik/ig_api
 
 ```
 
@@ -17,7 +17,7 @@ import ig_api
 ```
 
 ## Credentials
-### Create .env file for Instagram credentials
+### Create .env file for Instagram credentials. Package updates this file when refreshing expired access token.
 
 ```python
 ACCESS_TOKEN=
