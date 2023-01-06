@@ -5,7 +5,7 @@ A simple Python package to publish content using Instagram Graph API. Expired ac
 # Installation 
 
 ```python
-pip install git+https://github.com/klehik/ig_api
+pip install 'git+https://github.com/klehik/ig_api'
 
 ```
 
