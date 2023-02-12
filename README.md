@@ -9,18 +9,12 @@ pip install 'git+https://github.com/klehik/ig_api'
 
 ```
 
-# Usage
-
-```python
-import ig_api
-
-```
 
 ## Credentials
 ### Create .env file for Instagram credentials. Package updates this file when refreshing expired access token.
 
 ```python
-ACCESS_TOKEN=
+ACCESS_TOKEN= #User access token
 INSTAGRAM_ACCOUNT_ID= #user's instagram account 
 CLIENT_ID= #client id from meta developer portal
 CLIENT_SECRET= #client secret from meta developer portal
@@ -31,6 +25,8 @@ IG_USERNAME= #ig username
 ## Authentication
 
 ```python
+import ig_api
+
 env_path = '.env'
 auth = ig_api.Authentication(env_path=env_path)
 
@@ -49,7 +45,7 @@ api.create_post(urls=urls, caption=caption)
 
 ```
 
-## Refreshing access token if expired
+## Refreshing access token
 
 ```python
 refresher = ig_api.AccessTokenRefresh(auth)
