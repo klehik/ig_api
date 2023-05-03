@@ -15,66 +15,81 @@ License-File: LICENCE.txt
 
 # ig_api
 
-A simple Python package to publish content using Instagram Graph API
+A simple Python package to publish content using Instagram Graph API.
 
-# Installation 
+Instructions for setting up app in Meta Developer Portal
+https://developers.facebook.com/docs/instagram-api/
 
-```python
-pip install "git+https://gitlab.labranet.jamk.fi/AA4085/ig_pkg.git"
-
-```
-
-# Usage
+## Installation
 
 ```python
-import ig_api
+pip install 'git+https://github.com/klehik/ig_api'
 
 ```
 
 ## Credentials
-### Create .env file for Instagram credentials
+
+Create .env file for Instagram credentials.
 
 ```python
-ACCESS_TOKEN=
-INSTAGRAM_ACCOUNT_ID= #user's instagram account 
-CLIENT_ID= #client id from meta developer portal
-CLIENT_SECRET= #client secret from meta developer portal
-PAGE_ID= #facebook page id
-IG_USERNAME= #ig username
+ACCESS_TOKEN= # User access token
+INSTAGRAM_ACCOUNT_ID= # Instagram account ID
+CLIENT_ID= # App ID from meta developer portal
+CLIENT_SECRET= # App secret from meta developer portal
+PAGE_ID= # Facebook page id
+IG_USERNAME= # IG username
 ```
 
 ## Authentication
 
 ```python
+import ig_api
+
 env_path = '.env'
 auth = ig_api.Authentication(env_path=env_path)
-
 ```
 
+## Access Token
+
+Get a short-lived access token from Meta Developer Portal. Access token is valid for 1 hour.
+Select the following permissions
+
+<ul>
+
+  <li>ads_management</li>
+  <li>business_management</li>
+  <li>instagram_basic</li>
+  <li>instagram_content_publish</li>
+  <li>pages_read_engagement</li>
+
+</ul>
+
+## Refreshing access token
+
+Short lived access token can be updated to a 60-day access token. Refreshing token updates ACCESS_TOKEN in .env file.
+
+```python
+import ig_api
+
+refresher = ig_api.AccessTokenRefresh(auth)
+refresher.refresh_access_token()
+```
+
+This only works with short-lived tokens. Long-lived access tokens cannot be refreshed using this method.
+
+Check https://developers.facebook.com/docs/marketing-api/system-users for generating never expiring System User token.
+
 ## Posting
+
 Instagram media needs to be on a public server
 
-Single url creates a normal post, multiple urls(up to 10) creates a Carousel post
+A single url creates a normal post, multiple urls(up to 10) creates a Carousel post
 
 ```python
 urls = ['https://exapmle.com/example.jpg', 'https://exapmle2.com/example2.mp4']
 caption = 'test post'
 api = ig_api.API(auth)
 api.create_post(urls=urls, caption=caption)
-
 ```
-
-## Refreshing access token if expired
-
-```python
-refresher = ig_api.AccessTokenRefresh(auth)
-refresher.access_token_refresh()
-
-```
-
-
-
-
-
 
 
