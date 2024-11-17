@@ -17,7 +17,7 @@ class AccessTokenRefresh:
         auth = self.auth
         
             
-        url = f'https://graph.facebook.com/v15.0/oauth/access_token?grant_type=fb_exchange_token&client_id={auth.ig_app_id}&client_secret={auth.client_secret}&fb_exchange_token={auth.access_token}' 
+        url = f'https://graph.facebook.com/v21.0/oauth/access_token?grant_type=fb_exchange_token&client_id={auth.ig_app_id}&client_secret={auth.client_secret}&fb_exchange_token={auth.access_token}' 
         
 
         try:
