@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='ig_api',  
-    version='0.0.2',
+    version='0.1.0',
     author="Kalle Lehikoinen",
     author_email="kalle.lehikoinen@gmail.com",
     description="Simple library to make requests to IG graph api",
