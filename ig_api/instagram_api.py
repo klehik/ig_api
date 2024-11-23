@@ -12,14 +12,14 @@ class API:
 
 
 
-    def create_post(self, urls, caption):
+    def create_post(self, urls, caption, is_images_only):
 
         if urls == None:
             raise ValueError("No media provided")
         
         if len(urls) > 1:
 
-            media_id = self.__create_carousel_post(urls, caption)
+            media_id = self.__create_carousel_post(urls, caption, is_images_only)
 
         else:
             media_id = self.__create_single_post(urls[0], caption)
@@ -34,12 +34,12 @@ class API:
 
 
     
-    def __create_carousel_post(self,urls, caption):
+    def __create_carousel_post(self,urls, caption, is_images_only):
 
         logging.info("Creating Instagram carousel object:")
         media_ids = []
         for url in urls:
-            media_ids.append(self.__get_media_item_id(url, True, ''))
+            media_ids.append(self.__get_media_item_id(url, True, '', is_images_only))
 
         
         params = dict()
@@ -65,21 +65,23 @@ class API:
 
 
     
-    def __get_media_item_id(self, url, is_carousel, caption):
+    def __get_media_item_id(self, url, is_carousel, caption, is_images_only):
         ''' Returns media id '''
 
         logging.info("Creating Instagram media object:")
 
-      
-        # check media format
-        mimetypes.init()
-        media_type = mimetypes.guess_type(url)[0]
+        if is_images_only:
+            media_type = 'IMAGE'
+        else:
+            # check media format
+            mimetypes.init()
+            media_type = mimetypes.guess_type(url)[0]
 
-        if media_type != None: 
-            media_type = media_type.split('/')[0].upper()
+            if media_type != None: 
+                media_type = media_type.split('/')[0].upper()
 
-        if media_type != 'VIDEO' and media_type != 'IMAGE':
-            raise Exception(f"Unsupported media type: {media_type}") 
+            if media_type != 'VIDEO' and media_type != 'IMAGE':
+                raise Exception(f"Unsupported media type: {media_type}") 
             
 
         params = dict()  
