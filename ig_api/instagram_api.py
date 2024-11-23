@@ -22,14 +22,14 @@ class API:
             media_id = self.__create_carousel_post(urls, caption, is_images_only)
 
         else:
-            media_id = self.__create_single_post(urls[0], caption)
+            media_id = self.__create_single_post(urls[0], caption, is_images_only)
             
 
         self.__publish(media_id)
 
-    def __create_single_post(self,url, caption):
+    def __create_single_post(self,url, caption, is_images_only):
 
-        return self.__get_media_item_id(url, False, caption)
+        return self.__get_media_item_id(url, False, caption, is_images_only)
         
 
 
